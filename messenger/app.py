@@ -5,7 +5,7 @@ This serves static files from /static and /template directories
 '''
 
 # note we need to import several functions from Flask
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, json
 app = Flask(__name__)
 
 
@@ -21,13 +21,25 @@ def index():
 
     # now add this part
     elif request.method == 'POST':
-        messages.append((request.form['message'], request.form['name']))
+        obj = json.loads(request.data)
+        print(obj)
+        messages.append((obj['message'], obj['name']))
+        response = app.response_class(
+                response='Success.',
+                status=200
+        )
+        return response
 
 
 # returns messages
 @app.route('/messages', methods=['GET'])
 def api():
-    return messages
+    response = app.response_class(
+        response=json.dumps(messages),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
 
 # enables running from command line `flask run`
 if __name__ == '__main__':

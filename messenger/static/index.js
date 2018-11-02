@@ -1,19 +1,44 @@
-// to catch JS mistakes early
-'use strict';
+var name = '';
 
 window.onload = function (){
     // when the page finishes loading
 
-    function getRandomInt() {
-        // returns a random integer 1-100
-        return Math.floor(Math.random()*100);
-    }
+    name = prompt('Username: ');
+    console.log('name = ' + name)
     
     function updatePage() {
         // updates the page display
-        document.getElementById('rand').innerHTML = getRandomInt().toString();
+
+        fetch('/messages')
+        .then(data => {
+            console.log(data.status)
+            let messages = data.response;
+            console.log(messages);
+            document.getElementById('rand').val(messages);
+        })
+        .catch(err => console.error(err));
+
     }
     
-    window.setInterval(updatePage, 1000); // every 1000 milliseconds = 1 second
+    window.setInterval(updatePage, 3000); // every 3 seconds
     
+    // do this for initial load
+    updatePage();
 };
+
+// when the form is submit
+$("form").on("submit", function (e) {
+    e.preventDefault(); // don't reload page
+
+    let message = $('#sendbox')[0].value; // get message
+    // send to server
+    fetch('/', {
+                method: 'POST',
+                headers : new Headers(),
+                body:JSON.stringify({name:name, message:message})
+            })
+            .then((data) =>  console.log(data))
+            .catch((err)=>console.log(err))
+    $('#sendbox')[0].val(''); // clear input
+    return false;
+})

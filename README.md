@@ -1,11 +1,11 @@
 # flask-workshop
 Flask workshop
 
-Flask features:
+*** Make sure debug mode is on (enables automatic reloading, error logging)
+Linux: `export FLASK_DEBUG=1`
+Windows: `set FLASK_DEBUG=1`
 
-Reloads automatically if you just change CSS/JS/static files.
-
-If you change `index.html` file or server file, reload server manually :)
+(press enter after server file reload)
 
 ### Resources
 
