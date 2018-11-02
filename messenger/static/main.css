@@ -1,0 +1,12 @@
+html {
+    background: #000000;
+
+    text-align: center;
+    margin-top: auto;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 4em;
+
+    color: limegreen;
+    text-shadow: 2px 2px #99ff80;
+}
