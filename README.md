@@ -2,7 +2,7 @@
 Flask workshop
 
 Flask features:
-Auto-reloading
+Reloads automatically unless you change `index.html`. If you change that main HTML file, reload server manually :)
 
 ### Resources
 
